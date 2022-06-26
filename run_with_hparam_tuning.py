@@ -18,10 +18,8 @@ from recbole.quick_start import objective_function
 def objective_function(config_dict=None, config_file_list=None):
 
     Model: str | AbstractRecommender = xDeepFM  # BPR
-    dataset: str | Dataset = "ckpd_mart"
+    dataset: str | Dataset = "example"
 
-    # config = Config(model=Model, config_file_list=["config.yaml"])
-    # config = Config(model=Model, dataset="ml-100k")
     config = Config(model=Model, dataset=dataset, config_dict=config_dict, config_file_list=config_file_list)
 
     init_seed(config['seed'], config['reproducibility'])

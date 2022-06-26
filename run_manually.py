@@ -16,7 +16,7 @@ from recbole.data.dataset.dataset import Dataset
 
 if __name__ == '__main__':
     Model: str | AbstractRecommender = xDeepFM  # BPR
-    dataset: str | Dataset = "ckpd_mart"
+    dataset: str | Dataset = "example"
     config_file_list: list[str]  = ["configs/basic.yaml", "configs/models/xdeepfm.yaml"]
 
     # config = Config(model=Model, config_file_list=["config.yaml"])

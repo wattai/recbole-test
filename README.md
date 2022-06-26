@@ -5,7 +5,7 @@
 ### `run_recbole` を使った訓練方法。
 
 ```shell
-python run.py --dataset_name ckpd_mart --config_file configs/basic.yaml
+python run.py --dataset_name example --config_file configs/basic.yaml
 ```
 
 ### `run_recbole` を使わない訓練方法。自分でモデルなどを変更したい場合にはこちらを用いる。
