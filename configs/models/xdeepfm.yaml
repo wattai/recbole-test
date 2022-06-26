@@ -1,0 +1,9 @@
+
+# Model hyperparameter config
+embedding_size: 128
+mlp_hidden_size: [24, 36, 24]
+reg_weight: 0.01
+dropout_prob: 0.1
+direct: True  # cin_layer の最終出力をそのまま sigmoid に渡す (True) か、ダウンサイズしてから渡す (False) か。
+cin_layer_size: [32, 64, 32]
+

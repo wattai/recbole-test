@@ -1,0 +1,56 @@
+# general
+gpu_id: 0
+use_gpu: False  # GPUを使う時はTRUEにする
+seed: 2020
+state: INFO
+reproducibility: True
+data_path: 'dataset/'  # 使うデータが格納されている場所
+checkpoint_dir: 'saved/'  # モデル保存先
+show_progress: True
+save_dataset: False  # True にすればtrain, valid, test で使ったデータを保存してくれる
+save_dataloaders: False
+
+# Atomic File Format
+field_separator: "\t"
+seq_separator: "@" # 文字列があった場合この文字で区切られる。特徴量読み込み時にバグってしまう可能性があるため、できるだけデータを事前に処理しておき絶対に出現しない保障が取れている記号を書くべき(日本語の場合)
+
+# Common Features
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+RATING_FIELD: ~  # implicit feedback の場合
+TIME_FIELD: timestamp
+
+# Selectively Loading
+# 使うデータだけを選んで loadします
+load_col:
+    inter: [user_id, item_id, timestamp]
+    user: [user_id, feature1, feature2]
+    item: [item_id, item_name, item_category_id]
+unused_col:  # データとしては読み込むけど学習には使いたくないカラムはここで指定する
+    inter: [timestamp]
+
+# Training and evaluation config
+epochs: 50
+stopping_step: 10  # 10 step valid_metric が改善しない場合は止める
+train_batch_size: 4096
+eval_batch_size: 4096
+neg_sampling:  # implicit feedbackなデータを扱っていて positive,negative両方のラベルが必要な手法を試す際に、negative samplingすることでデータを用意できる
+    uniform: 1
+eval_args:
+    group_by: user  # user 単位でアイテムを集約して評価に使う。基本的にこれ以外使うことはない
+    order: TO  # Temporal Order。時系列順で train, valid, test を分けてくれる
+    split: {'RS': [0.8,0.1,0.1]}  # 80%, 10%, 10% で分けてくれる
+    mode: full
+metrics: ['Recall', 'MRR', 'NDCG', 'Hit', 'Precision']
+topk: 5
+valid_metric: Recall@5  # この指標をtrackする
+metric_decimal_place: 4
+
+# Model hyperparameter config
+embedding_size: 128
+mlp_hidden_size: [24, 36, 24]
+reg_weight: 0.01
+dropout_prob: 0.1
+direct: True  # cin_layer の最終出力をそのまま sigmoid に渡す (True) か、ダウンサイズしてから渡す (False) か。
+cin_layer_size: [32, 64, 32]
+

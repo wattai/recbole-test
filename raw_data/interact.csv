@@ -1,0 +1,5 @@
+user_id,item_id,timestamp(Unix timestamp)
+1,1,1630461974
+2,2,1630462246
+3,2,1630462432
+
