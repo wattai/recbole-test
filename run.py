@@ -1,6 +1,6 @@
-
 import click
 from recbole.quick_start import run_recbole
+
 
 @click.command()
 @click.option(
@@ -26,6 +26,6 @@ def main(dataset_name, config_file):
         config_file_list=config_file_list,
     )
 
+
 if __name__ == "__main__":
     main()
-
